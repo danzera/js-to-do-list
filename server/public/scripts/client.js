@@ -5,15 +5,16 @@ $(document).ready(function() {
 
 function updateDOM(tasksArray) {
   var $tbody = $('#tasksTable').children().last();
+  //$tbody.empty();
   for (var i = 0; i < tasksArray.length; i++) {
     var task = tasksArray[i];
-    var $row = $tbody.append('<tr>');
-    $row.data('id', i);
+    $tbody.append('<tr>');
+    var $row = $tbody.children().last();
     $row.append('<td>' + task.name + '</td>');
     $row.append('<td>' + task.description + '</td>');
     $row.append('<td><input type="date" value=' + task.due_date.slice(0, 10) + '></input></td>');
-    $row.append('<td><input type="checkbox" name="complete"></td>');
-    $row.append('<td><button class="delete">Delete Task</button></td>');
+    $row.append('<td><input type="checkbox" name="complete" data-id="' + task.id + '"></td>');
+    $row.append('<td><button class="delete" data-id="' + task.id + '">Delete Task</button></td>');
   }
 }
 
