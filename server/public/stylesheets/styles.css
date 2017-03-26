@@ -1,3 +1,7 @@
-.container {
+.inputArea {
   background-color: salmon;
+}
+
+.outputArea {
+  background-color: gray;
 }

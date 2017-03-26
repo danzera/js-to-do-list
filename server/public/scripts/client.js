@@ -7,7 +7,7 @@ $(document).ready(function() {
 function addEventListeners() {
   $('#addTask').on('submit', function(e) {
       e.preventDefault();
-      // TEST
+      // TEST - WORKING
       console.log('click listener working');
       var taskName = $('#taskName').val();
       var taskDescription = $('#taskDescription').val();
@@ -21,7 +21,7 @@ function addEventListeners() {
           description: taskDescription,
           due: dueDate
         };
-        // TEST
+        // TEST - WORKING
         console.log(task);
         addTask(task);
       } // end if-else
@@ -35,7 +35,7 @@ function addTask(task) {
     url: '/addTask',
     data: task,
     success: function(res) {
-      // TEST (after hooking up foam cup on the server)
+      // TEST (after hooking up foam cup on the server) - WORKING
       console.log(res);
     }
   });
