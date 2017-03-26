@@ -11,9 +11,9 @@ var config = { // database connection configuration
 var pool = new pg.Pool(config); // create database connection pool
 
 // 'deleteTask' 'DELETE' request
-router.delete('/', function(req, res) {
-  console.log('/deleteTask route hit in delete-task.js router'); // server console
-  var taskID = req.body.id; // id of the task we are about to delete
+router.delete('/:id', function(req, res) {
+  var taskID = req.params.id; // id of the task we are about to delete
+  console.log('/deleteTask route hit in delete-task.js router for task ID:', taskID); // server console
   // delete task from our database
   pool.connect(function(errorConnectingToDatabase, database, done) {
      if (errorConnectingToDatabase) { // error connecting

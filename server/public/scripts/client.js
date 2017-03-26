@@ -31,8 +31,7 @@ function addTask(task) {
 function deleteTask(taskID) {
   $.ajax({
     type: 'DELETE',
-    url: '/deleteTask',
-    data: {id: taskID},
+    url: '/deleteTask/' + taskID ,
     success: function(res) {
       getTasks();
     }
