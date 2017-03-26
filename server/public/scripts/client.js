@@ -1,7 +1,18 @@
 $(document).ready(function() {
-  console.log('jQ sourced!');
+  appendDOM();
   addEventListeners();
 });
+
+// get tasks from the server/database and display in the outputArea
+function appendDOM() {
+  $.ajax({
+    type: 'GET',
+    url: '/getTasks',
+    success: function(res) {
+      console.log('appendDOM() response from the server', res);
+    }
+  });
+} // end appendDOM()
 
 // event listeners
 function addEventListeners() {
