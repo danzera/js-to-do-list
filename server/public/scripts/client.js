@@ -12,12 +12,31 @@ function addEventListeners() {
       var taskName = $('#taskName').val();
       var taskDescription = $('#taskDescription').val();
       var dueDate = $('#dueDate').val();
-      var task = {
-        name: taskName,
-        description: taskDescription,
-        due: dueDate
-      };
-      // TEST
-      console.log(task);
-  });
+      // verify input
+      if (taskName === '' || taskDescription === '' || dueDate === '') {
+        alert('Please add input for all fields. Thank you, kindly.');
+      } else {
+        var task = {
+          name: taskName,
+          description: taskDescription,
+          due: dueDate
+        };
+        // TEST
+        console.log(task);
+        addTask(task);
+      } // end if-else
+  }); // end on-submit click listener
 } // end addEventListeners()
+
+// send new 'task' object to the server
+function addTask(task) {
+  $.ajax({
+    type: 'POST',
+    url: '/addTask',
+    data: task,
+    success: function(res) {
+      // TEST (after hooking up foam cup on the server)
+      console.log(res);
+    }
+  });
+} // end newTask()
