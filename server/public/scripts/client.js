@@ -52,6 +52,12 @@ function addEventListeners() {
         addTask(task);
       } // end if-else
   }); // end on-submit click listener for 'Add Task!' button
+
+  // 'Delete Task' click handler
+  $('tbody').on('click', '.delete', function() {
+    var taskID = $(this).data('id');
+    console.log('delete button clicked for task id', taskID);
+  });
 } // end addEventListeners()
 
 // clear input fields
