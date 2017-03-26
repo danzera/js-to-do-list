@@ -2,15 +2,27 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Prime Weekend Challenge 3</title>
+    <title>Chi-Yak To-Do's</title>
     <link rel="stylesheet" href="/stylesheets/styles.css">
     <script src="vendors/jquery.min.js" charset="utf-8"></script>
     <script src="scripts/client.js" charset="utf-8"></script>
   </head>
   <body>
     <div class="container">
-      <h1>To-Do List</h1>
+      <!--DIV FOR ADDING NEW TASKS-->
+      <div class="inputArea">
+      <h1>Anything new that needs to git done...?</h1>
+      <form id="addTask">
+        <input id="taskName" type="text" name="taskName" placeholder="Add a new task!">
+        <input id="taskDescription" type="text" name="taskDescription" placeholder="Add a description!">
+        <input id="dueDate" type="date" name="dueDate" placeholder=today>
+        <input type="submit" name="addTask" value="Add Task!">
+      </form>
+      </div>
+      <!--DIV FOR DISPLAYING EXISTING TASKS-->
+      <div class="outputArea">
 
+      </div>
     </div>
   </body>
 </html>
