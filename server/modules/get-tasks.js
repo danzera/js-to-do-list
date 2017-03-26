@@ -12,30 +12,28 @@ var pool = new pg.Pool(config); // create database connection pool
 
 // 'addTask' 'POST' request
 router.get('/', function(req, res) {
+  // TEST - WORKING
   console.log('/getTasks route hit in get-tasks.js router'); // server console
   // add new task to our database
   pool.connect(function(errorConnectingToDatabase, database, done) {
     if (errorConnectingToDatabase) { // error connecting
       res.sendStatus(500); // internal server error
     } else { // connected to database
-      // // TEST - WORKING
-      // console.log('connected to database on /getTasks route');
-      // // INSERT INTO "tasks" ("name", "description", "due_date") VALUES ('weekend challenge 3', 'to-do list', '03/26/2017');
-      // database.query('INSERT INTO "tasks" ' +
-      //                '("name", "description", "due_date") ' +
-      //                'VALUES ($1, $2, $3);',
-      //   [taskName, taskDescription, dueDate], function(queryError, result) {
-      //     done(); // release the connection to the pool
-      //     if (queryError) {
-      //       console.log('error making insert query in add-task.js');
-      //       res.sendStatus(500); // internal server error
-      //     } else {
-      //       res.sendStatus(201); // insert to "tasks" table successul
-      //     }
-      // }); // end database INSERT query
+      // // TEST
+      console.log('connected to database on /getTasks route');
+      // SELECT * FROM "tasks";
+      database.query('SELECT * FROM "tasks";', function(queryError, result) {
+          done(); // release the connection to the pool
+          if (queryError) {
+            console.log('error making select query in get-tasks.js');
+            res.sendStatus(500); // internal server error
+          } else {
+            console.log(result.rows);
+            res.sendStatus(200); // SELECT "tasks" table successul
+          }
+      }); // end database INSERT query
     } // end if-else database connection
   }); // end database connection function
-  // res.send('hello from the server on the /addTask route'); // send back to client
 }); // end 'add-task' router.post
 
 module.exports = router; // export the router functionality

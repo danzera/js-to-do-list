@@ -38,7 +38,6 @@ router.post('/', function(req, res) {
       }); // end database INSERT query
     } // end if-else database connection
   }); // end database connection function
-  // res.send('hello from the server on the /addTask route'); // send back to client
 }); // end 'add-task' router.post
 
 module.exports = router; // export the router functionality
