@@ -5,3 +5,21 @@
 .outputArea {
   background-color: gray;
 }
+
+table {
+  border-collapse: collapse;
+}
+
+table, th, td {
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid black;
+}
+
+thead {
+  text-align: left;
+}
+
+.checkbox {
+  text-align: center;
+}
