@@ -32,9 +32,9 @@ function deleteTask(taskID) {
   $.ajax({
     type: 'DELETE',
     url: '/deleteTask',
-    data: taskID,
+    data: {id: taskID},
     success: function(res) {
-      console.log('server connection confirmed on /deleteTask route');
+      getTasks();
     }
   });
 } // end deleteTask()

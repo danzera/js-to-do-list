@@ -12,7 +12,6 @@ var pool = new pg.Pool(config); // create database connection pool
 
 // 'addTask' 'POST' request
 router.get('/', function(req, res) {
-  // TEST - WORKING
   console.log('/getTasks route hit in get-tasks.js router'); // server console
   // add new task to our database
   pool.connect(function(errorConnectingToDatabase, database, done) {

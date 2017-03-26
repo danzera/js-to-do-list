@@ -18,8 +18,7 @@ router.post('/', function(req, res) {
     if (errorConnectingToDatabase) { // error connecting
       res.sendStatus(500); // internal server error
     } else { // connected to database
-      // TEST - WORKING
-      console.log(req.body);
+      console.log('adding new task:', req.body);
       var taskName = req.body.name;
       var taskDescription = req.body.description;
       var dueDate = req.body.due;
