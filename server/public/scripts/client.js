@@ -1,18 +1,32 @@
 $(document).ready(function() {
-  appendDOM();
+  getTasks();
   addEventListeners();
 });
 
+function updateDOM(tasksArray) {
+  var $tbody = $('#tasksTable').children().last();
+  for (var i = 0; i < tasksArray.length; i++) {
+    var task = tasksArray[i];
+    var $row = $tbody.append('<tr>');
+    $row.data('id', i);
+    $row.append('<td>' + task.name + '</td>');
+    $row.append('<td>' + task.description + '</td>');
+    $row.append('<td><input type="date" value=' + task.due_date.slice(0, 10) + '></input></td>');
+    $row.append('<td><input type="checkbox" name="complete"></td>');
+    $row.append('<td><button class="delete">Delete Task</button></td>');
+  }
+}
+
 // get tasks from the server/database and display in the outputArea
-function appendDOM() {
+function getTasks() {
   $.ajax({
     type: 'GET',
     url: '/getTasks',
     success: function(res) {
-      console.log('appendDOM() response from the server', res);
+      updateDOM(res);
     }
   });
-} // end appendDOM()
+} // end getTasks()
 
 // event listeners
 function addEventListeners() {

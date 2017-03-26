@@ -28,8 +28,7 @@ router.get('/', function(req, res) {
             console.log('error making select query in get-tasks.js');
             res.sendStatus(500); // internal server error
           } else {
-            console.log(result.rows);
-            res.sendStatus(200); // SELECT "tasks" table successul
+            res.send(result.rows); // SELECT "tasks" table successul
           }
       }); // end database INSERT query
     } // end if-else database connection
