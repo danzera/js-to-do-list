@@ -3,6 +3,42 @@ $(document).ready(function() {
   addEventListeners();
 });
 
+// get tasks from the server/database and display in the outputArea
+function getTasks() {
+  $.ajax({
+    type: 'GET',
+    url: '/getTasks',
+    success: function(res) {
+      updateDOM(res);
+    }
+  });
+} // end getTasks()
+
+// send new 'task' object to the server
+function addTask(task) {
+  $.ajax({
+    type: 'POST',
+    url: '/addTask',
+    data: task,
+    success: function(res) {
+      // TEST (after hooking up foam cup on the server) - WORKING
+      getTasks();
+    }
+  });
+} // end addTask()
+
+// send request to server to delete a task
+function deleteTask(taskID) {
+  $.ajax({
+    type: 'DELETE',
+    url: '/deleteTask',
+    data: taskID,
+    success: function(res) {
+      console.log('server connection confirmed on /deleteTask route');
+    }
+  });
+} // end deleteTask()
+
 function updateDOM(tasksArray) {
   var $tbody = $('#tasksTable').children().last();
   $tbody.empty();
@@ -18,16 +54,12 @@ function updateDOM(tasksArray) {
   }
 }
 
-// get tasks from the server/database and display in the outputArea
-function getTasks() {
-  $.ajax({
-    type: 'GET',
-    url: '/getTasks',
-    success: function(res) {
-      updateDOM(res);
-    }
-  });
-} // end getTasks()
+// clear input fields
+function clearInput() {
+  $('#taskName').val('');
+  $('#taskDescription').val('');
+  $('#dueDate').val('');
+} // end clearInput()
 
 // event listeners
 function addEventListeners() {
@@ -55,27 +87,7 @@ function addEventListeners() {
 
   // 'Delete Task' click handler
   $('tbody').on('click', '.delete', function() {
-    var taskID = $(this).data('id');
-    console.log('delete button clicked for task id', taskID);
-  });
+    var taskID = $(this).data('id'); // task ID stored as data on each delete btn
+    deleteTask(taskID); // delete the associated task from the database
+  }); // end on-click listener for 'Delete Task' button
 } // end addEventListeners()
-
-// clear input fields
-function clearInput() {
-  $('#taskName').val('');
-  $('#taskDescription').val('');
-  $('#dueDate').val('');
-}
-
-// send new 'task' object to the server
-function addTask(task) {
-  $.ajax({
-    type: 'POST',
-    url: '/addTask',
-    data: task,
-    success: function(res) {
-      // TEST (after hooking up foam cup on the server) - WORKING
-      getTasks();
-    }
-  });
-} // end newTask()
