@@ -21,7 +21,7 @@ router.get('/', function(req, res) {
       // // TEST
       console.log('connected to database on /getTasks route');
       // SELECT * FROM "tasks";
-      database.query('SELECT * FROM "tasks" ORDER BY "due_date";', function(queryError, result) {
+      database.query('SELECT * FROM "tasks" ORDER BY "complete", "due_date";', function(queryError, result) {
           done(); // release the connection to the pool
           if (queryError) {
             console.log('error making select query in get-tasks.js');

@@ -36,7 +36,7 @@ function updateTask(taskID, taskStatus) {
       complete: taskStatus
     },
     success: function(res) {
-      console.log('update task ajax call successful');
+      getTasks();
     }
   });
 }
@@ -102,18 +102,20 @@ function addEventListeners() {
         addTask(task);
       } // end if-else
   }); // end on-submit click listener for 'Add Task!' button
-//-----------------------
-// 'Complete' checkbox click handler
-$('tbody').on('click', '.checkbox', function() {
-  var taskID = $(this).data('id');
-  var complete = this.checked; // state of the task (true/false)
-  console.log('checkbox', taskID, complete);
-  updateTask(taskID, complete); // update task completion status
-}); // end click listener for 'Complete' checkbox
-//-----------------------
+  
+  // 'Complete' checkbox click handler
+  $('tbody').on('click', '.checkbox', function() {
+    var taskID = $(this).data('id');
+    var complete = this.checked; // state of the task (true/false)
+    console.log('checkbox', taskID, complete);
+    updateTask(taskID, complete); // update task completion status
+  }); // end click listener for 'Complete' checkbox
+
   // 'Delete Task' click handler
   $('tbody').on('click', '.delete', function() {
-    var taskID = $(this).data('id'); // task ID stored as data on each delete btn
-    deleteTask(taskID); // delete the associated task from the database
+    if (confirm("Are you certain you wish to delete the task? If so, it shall be permanently vanquished.")) {
+      var taskID = $(this).data('id'); // task ID stored as data on each delete btn
+      deleteTask(taskID); // delete the associated task from the database
+    }
   }); // end on-click listener for 'Delete Task' button
 } // end addEventListeners()
