@@ -48,8 +48,13 @@ function updateDOM(tasksArray) {
     $row.append('<td>' + task.name + '</td>');
     $row.append('<td>' + task.description + '</td>');
     $row.append('<td><input type="date" value=' + task.due_date.slice(0, 10) + '></input></td>');
-    $row.append('<td class="checkbox"><input type="checkbox" data-id="' + task.id + '"></td>');
+    $row.append('<td class="checkbox"><input id="checkbox' + i + '" type="checkbox" data-id="' + task.id + '"></td>');
     $row.append('<td><button class="delete" data-id="' + task.id + '">Delete Task</button></td>');
+    if (task.complete === true) {
+      $row.addClass('complete');
+      $('#checkbox' + i).prop('checked', true);
+      console.log($('#checkbox' + i));
+    }
   }
 }
 

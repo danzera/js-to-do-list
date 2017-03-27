@@ -1,13 +1,14 @@
 .inputArea {
-  background-color: salmon;
+
 }
 
 .outputArea {
-  background-color: gray;
+
 }
 
 table {
   border-collapse: collapse;
+  background-color: gray;
 }
 
 table, th, td {
@@ -22,4 +23,9 @@ thead {
 
 .checkbox {
   text-align: center;
+}
+
+.complete {
+  background-color: salmon;
+  text-decoration: line-through;
 }
