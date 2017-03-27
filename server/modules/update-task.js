@@ -11,30 +11,29 @@ var config = { // database connection configuration
 var pool = new pg.Pool(config); // create database connection pool
 
 // 'addTask' 'POST' request
-router.put('/:id/:status', function(req, res) {
-  var taskID = req.params.id;
-  var complete = req.params.status;
-  console.log('/updateTask/' + taskID + '/' + complete + ' route hit in update-task.js router'); // server console
-  res.sendStatus(200);
+router.put('/', function(req, res) {
+  var taskID = req.body.id;
+  var taskStatus = req.body.complete;
+  console.log('/updateTask ' + taskID + ' ' + taskStatus + ' route hit in update-task.js router'); // server console
   // update task in our database
-  // pool.connect(function(errorConnectingToDatabase, database, done) {
-  //   if (errorConnectingToDatabase) { // error connecting
-  //     res.sendStatus(500); // internal server error
-  //   } else { // connected to database
-  //     // // TEST
-  //     console.log('connected to database on /getTasks route');
-  //     // SELECT * FROM "tasks";
-  //     database.query('SELECT * FROM "tasks" ORDER BY "due_date";', function(queryError, result) {
-  //         done(); // release the connection to the pool
-  //         if (queryError) {
-  //           console.log('error making select query in get-tasks.js');
-  //           res.sendStatus(500); // internal server error
-  //         } else {
-  //           res.send(result.rows); // SELECT "tasks" table successul
-  //         }
-  //     }); // end database INSERT query
-  //   } // end if-else database connection
-  // }); // end database connection function
+  pool.connect(function(errorConnectingToDatabase, database, done) {
+    if (errorConnectingToDatabase) { // error connecting
+      res.sendStatus(500); // internal server error
+    } else { // connected to database
+      console.log(taskStatus, taskID);
+      // UPDATE "tasks" SET "complete" = true WHERE "id" = 3;
+      database.query('UPDATE "tasks" SET "complete" = $1 WHERE "id" = $2;',
+        [taskStatus, taskID], function(queryError, result) {
+          done(); // release the connection to the pool
+          if (queryError) {
+            console.log('error making select query in get-tasks.js');
+            res.sendStatus(500); // internal server error
+          } else {
+            res.sendStatus(201); // UPDATE "tasks" table successul
+          }
+      }); // end database UPDATE query
+    } // end if-else database connection
+  }); // end database connection function
 }); // end 'add-task' router.post
 
 module.exports = router; // export the router functionality

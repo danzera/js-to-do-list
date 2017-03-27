@@ -27,10 +27,14 @@ function addTask(task) {
   });
 } // end addTask()
 //------------------
-function updateTask(taskID, complete) {
+function updateTask(taskID, taskStatus) {
   $.ajax({
     type: 'PUT',
-    url: '/updateTask/' + taskID + '/' + complete,
+    url: '/updateTask',
+    data: {
+      id: taskID,
+      complete: taskStatus
+    },
     success: function(res) {
       console.log('update task ajax call successful');
     }
