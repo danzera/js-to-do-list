@@ -26,7 +26,7 @@ function addTask(task) {
     }
   });
 } // end addTask()
-//------------------
+
 function updateTask(taskID, taskStatus) {
   $.ajax({
     type: 'PUT',
@@ -40,7 +40,7 @@ function updateTask(taskID, taskStatus) {
     }
   });
 }
-//------------------
+
 // send request to server to delete a task
 function deleteTask(taskID) {
   $.ajax({
@@ -52,6 +52,8 @@ function deleteTask(taskID) {
   });
 } // end deleteTask()
 
+// updateDOM() is called by the getTasks() function
+// changes table display based on various user activities
 function updateDOM(tasksArray) {
   var $tbody = $('#tasksTable').children().last();
   $tbody.empty();
@@ -62,15 +64,16 @@ function updateDOM(tasksArray) {
     var $row = $tbody.children().last();
     $row.append('<td>' + task.name + '</td>');
     $row.append('<td>' + task.description + '</td>');
-    $row.append('<td><input type="date" value=' + task.due_date.slice(0, 10) + '></input></td>');
+    $row.append('<td><input id="date' + taskID + '"  type="date" value=' + task.due_date.slice(0, 10) + '></input></td>');
+    $row.append('<td><button class="update" data-id="' + taskID + '">upDate</button></td>');
     $row.append('<td class="tdCheck"><input class="checkbox" id="checkbox' + taskID + '" type="checkbox" data-id="' + taskID + '"></td>');
     $row.append('<td><button class="delete" data-id="' + taskID + '">Delete Task</button></td>');
     if (task.complete === true) { // additional logic for completed tasks
       $row.addClass('complete'); // add 'complete' styling
       $('#checkbox' + taskID).prop('checked', true); // check complete box
     }
-  }
-}
+  } // end for-loop through tasksArray
+} // end updateDOM()
 
 // clear input fields
 function clearInput() {
@@ -102,7 +105,7 @@ function addEventListeners() {
         addTask(task);
       } // end if-else
   }); // end on-submit click listener for 'Add Task!' button
-  
+
   // 'Complete' checkbox click handler
   $('tbody').on('click', '.checkbox', function() {
     var taskID = $(this).data('id');
