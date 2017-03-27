@@ -13,6 +13,7 @@ var pool = new pg.Pool(config); // create database connection pool
 // 'addTask' 'POST' request
 router.put('/', function(req, res) {
   var taskID = req.body.id;
+  var dueDate = req.body.dueDate;
   var taskStatus = req.body.complete;
   console.log('/updateTask ' + taskID + ' ' + taskStatus + ' route hit in update-task.js router'); // server console
   // update task in our database
@@ -22,8 +23,8 @@ router.put('/', function(req, res) {
     } else { // connected to database
       console.log(taskStatus, taskID);
       // UPDATE "tasks" SET "complete" = true WHERE "id" = 3;
-      database.query('UPDATE "tasks" SET "complete" = $1 WHERE "id" = $2;',
-        [taskStatus, taskID], function(queryError, result) {
+      database.query('UPDATE "tasks" SET ("due_date", "complete") = ($1, $2) WHERE "id" = $3;',
+        [dueDate, taskStatus, taskID], function(queryError, result) {
           done(); // release the connection to the pool
           if (queryError) {
             console.log('error making select query in get-tasks.js');

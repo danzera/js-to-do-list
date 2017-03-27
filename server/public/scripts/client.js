@@ -33,7 +33,8 @@ function updateTask(taskID, taskStatus) {
     url: '/updateTask',
     data: {
       id: taskID,
-      complete: taskStatus
+      dueDate: $('#due-date-' + taskID).val(),
+      complete: $('#checkbox-' + taskID).prop('checked')
     },
     success: function(res) {
       getTasks();
@@ -64,13 +65,13 @@ function updateDOM(tasksArray) {
     var $row = $tbody.children().last();
     $row.append('<td>' + task.name + '</td>');
     $row.append('<td>' + task.description + '</td>');
-    $row.append('<td><input id="date' + taskID + '"  type="date" value=' + task.due_date.slice(0, 10) + '></input></td>');
+    $row.append('<td><input id="due-date-' + taskID + '"  type="date" value=' + task.due_date.slice(0, 10) + '></input></td>');
     $row.append('<td><button class="update" data-id="' + taskID + '">upDate</button></td>');
-    $row.append('<td class="tdCheck"><input class="checkbox" id="checkbox' + taskID + '" type="checkbox" data-id="' + taskID + '"></td>');
+    $row.append('<td class="tdCheck"><input class="checkbox" id="checkbox-' + taskID + '" type="checkbox" data-id="' + taskID + '"></td>');
     $row.append('<td><button class="delete" data-id="' + taskID + '">Delete Task</button></td>');
     if (task.complete === true) { // additional logic for completed tasks
       $row.addClass('complete'); // add 'complete' styling
-      $('#checkbox' + taskID).prop('checked', true); // check complete box
+      $('#checkbox-' + taskID).prop('checked', true); // check complete box
     }
   } // end for-loop through tasksArray
 } // end updateDOM()
@@ -100,18 +101,23 @@ function addEventListeners() {
           description: taskDescription,
           due: dueDate
         };
-        // TEST - WORKING
         console.log('sending new task to the server:', task);
         addTask(task);
       } // end if-else
   }); // end on-submit click listener for 'Add Task!' button
 
+  // 'upDate' button click handler
+  $('tbody').on('click', '.update', function() {
+    var taskID = $(this).data('id');
+    console.log('change date for task', taskID);
+    updateTask(taskID);
+  }); // end click listener for 'upDate' button
+
   // 'Complete' checkbox click handler
   $('tbody').on('click', '.checkbox', function() {
     var taskID = $(this).data('id');
-    var complete = this.checked; // state of the task (true/false)
-    console.log('checkbox', taskID, complete);
-    updateTask(taskID, complete); // update task completion status
+    //var complete = this.checked; // state of the task (true/false)
+    updateTask(taskID); // update task completion status
   }); // end click listener for 'Complete' checkbox
 
   // 'Delete Task' click handler
