@@ -31,4 +31,4 @@ SELECT * FROM "tasks";
 DELETE FROM "tasks" WHERE "id" = 10;
 
 -- Test for update-task.js
-UPDATE "tasks" SET "complete" = true WHERE "id" = 3;
+UPDATE "tasks" SET ("due_date", "complete") = ('06/27/2017', true) WHERE "id" = 3;
