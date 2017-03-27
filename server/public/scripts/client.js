@@ -67,7 +67,7 @@ function updateDOM(tasksArray) {
     $row.append('<td>' + task.name + '</td>');
     $row.append('<td>' + task.description + '</td>');
     $row.append('<td><input id="due-date-' + taskID + '"  type="date" value=' + task.due_date.slice(0, 10) + '></input></td>');
-    $row.append('<td><button class="update" data-id="' + taskID + '">upDate</button></td>');
+    $row.append('<td class="tdUpdate"><button class="update" data-id="' + taskID + '">upDate</button></td>');
     $row.append('<td class="tdCheck"><input class="update" id="checkbox-' + taskID + '" type="checkbox" data-id="' + taskID + '"></td>');
     $row.append('<td><button class="delete" data-id="' + taskID + '">Delete Task</button></td>');
     if (task.complete === true) { // additional logic for completed tasks

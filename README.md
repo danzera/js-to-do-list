@@ -6,4 +6,4 @@
 [x] Refresh front-end to show existing tasks
 [x] Add delete button for each task
 [x] Tie delete button to back end
-[ ] Add class change to task display on DOM when marked as complete
+[x] Add class change to task display on DOM when marked as complete

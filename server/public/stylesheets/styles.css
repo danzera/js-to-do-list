@@ -5,13 +5,12 @@ body {
 
 table {
   border-collapse: collapse;
-  background-color: gray;
 }
 
 table, th, td {
   margin: 5px;
   padding: 5px;
-  border: 1px solid black;
+  border-bottom: 1px solid #ddd;
 }
 
 thead {
@@ -23,7 +22,7 @@ tbody {
   background-color: #74AFAD;
 }
 
-.tdCheck {
+.tdUpdate, .tdCheck {
   text-align: center;
 }
 
