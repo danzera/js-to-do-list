@@ -26,12 +26,22 @@ function addTask(task) {
     }
   });
 } // end addTask()
-
+//------------------
+function updateTask(taskID, complete) {
+  $.ajax({
+    type: 'PUT',
+    url: '/updateTask/' + taskID + '/' + complete,
+    success: function(res) {
+      console.log('update task ajax call successful');
+    }
+  });
+}
+//------------------
 // send request to server to delete a task
 function deleteTask(taskID) {
   $.ajax({
     type: 'DELETE',
-    url: '/deleteTask/' + taskID ,
+    url: '/deleteTask/' + taskID,
     success: function(res) {
       getTasks();
     }
@@ -49,7 +59,7 @@ function updateDOM(tasksArray) {
     $row.append('<td>' + task.name + '</td>');
     $row.append('<td>' + task.description + '</td>');
     $row.append('<td><input type="date" value=' + task.due_date.slice(0, 10) + '></input></td>');
-    $row.append('<td><input class="checkbox" id="checkbox' + taskID + '" type="checkbox" data-id="' + taskID + '"></td>');
+    $row.append('<td class="tdCheck"><input class="checkbox" id="checkbox' + taskID + '" type="checkbox" data-id="' + taskID + '"></td>');
     $row.append('<td><button class="delete" data-id="' + taskID + '">Delete Task</button></td>');
     if (task.complete === true) { // additional logic for completed tasks
       $row.addClass('complete'); // add 'complete' styling
@@ -94,7 +104,7 @@ $('tbody').on('click', '.checkbox', function() {
   var taskID = $(this).data('id');
   var complete = this.checked; // state of the task (true/false)
   console.log('checkbox', taskID, complete);
-  // deleteTask(taskID); // delete the associated task from the database
+  updateTask(taskID, complete); // update task completion status
 }); // end click listener for 'Complete' checkbox
 //-----------------------
   // 'Delete Task' click handler
