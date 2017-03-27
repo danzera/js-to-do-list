@@ -1,9 +1,6 @@
-.inputArea {
-
-}
-
-.outputArea {
-
+body {
+  background-color: #FDF3E7;
+  font-family: Helvetica;
 }
 
 table {
@@ -18,7 +15,12 @@ table, th, td {
 }
 
 thead {
+  background-color: #558C89;
   text-align: left;
+}
+
+tbody {
+  background-color: #74AFAD;
 }
 
 .tdCheck {
@@ -26,6 +28,6 @@ thead {
 }
 
 .complete {
-  background-color: salmon;
+  background-color: #D9853B;
   text-decoration: line-through;
 }
