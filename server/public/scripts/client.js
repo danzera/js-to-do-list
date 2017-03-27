@@ -27,7 +27,7 @@ function addTask(task) {
   });
 } // end addTask()
 
-// update
+// send update request for existing task
 function updateTask(taskID) {
   $.ajax({
     type: 'PUT',
@@ -41,7 +41,7 @@ function updateTask(taskID) {
       getTasks();
     }
   });
-}
+} // end updateTask()
 
 // send request to server to delete a task
 function deleteTask(taskID) {
