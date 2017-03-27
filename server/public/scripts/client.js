@@ -43,17 +43,17 @@ function updateDOM(tasksArray) {
   $tbody.empty();
   for (var i = 0; i < tasksArray.length; i++) {
     var task = tasksArray[i];
+    var taskID = task.id;
     $tbody.append('<tr>');
     var $row = $tbody.children().last();
     $row.append('<td>' + task.name + '</td>');
     $row.append('<td>' + task.description + '</td>');
     $row.append('<td><input type="date" value=' + task.due_date.slice(0, 10) + '></input></td>');
-    $row.append('<td class="checkbox"><input id="checkbox' + i + '" type="checkbox" data-id="' + task.id + '"></td>');
-    $row.append('<td><button class="delete" data-id="' + task.id + '">Delete Task</button></td>');
-    if (task.complete === true) {
-      $row.addClass('complete');
-      $('#checkbox' + i).prop('checked', true);
-      console.log($('#checkbox' + i));
+    $row.append('<td><input class="checkbox" id="checkbox' + taskID + '" type="checkbox" data-id="' + taskID + '"></td>');
+    $row.append('<td><button class="delete" data-id="' + taskID + '">Delete Task</button></td>');
+    if (task.complete === true) { // additional logic for completed tasks
+      $row.addClass('complete'); // add 'complete' styling
+      $('#checkbox' + taskID).prop('checked', true); // check complete box
     }
   }
 }
@@ -88,7 +88,15 @@ function addEventListeners() {
         addTask(task);
       } // end if-else
   }); // end on-submit click listener for 'Add Task!' button
-
+//-----------------------
+// 'Complete' checkbox click handler
+$('tbody').on('click', '.checkbox', function() {
+  var taskID = $(this).data('id');
+  var complete = this.checked; // state of the task (true/false)
+  console.log('checkbox', taskID, complete);
+  // deleteTask(taskID); // delete the associated task from the database
+}); // end click listener for 'Complete' checkbox
+//-----------------------
   // 'Delete Task' click handler
   $('tbody').on('click', '.delete', function() {
     var taskID = $(this).data('id'); // task ID stored as data on each delete btn
