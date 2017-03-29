@@ -22,10 +22,6 @@ tbody {
   background-color: #74AFAD;
 }
 
-.tdUpdate, .tdCheck {
-  text-align: center;
-}
-
 .complete {
   background-color: #D9853B;
   text-decoration: line-through;
